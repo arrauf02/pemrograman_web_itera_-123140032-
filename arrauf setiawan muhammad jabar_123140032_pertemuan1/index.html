@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Tugas Akademik Mahasiswa</title>
+    
+    <link rel="stylesheet" href="style.css"> 
+
+</head>
+<body>
+    <div class="container">
+        <h1>🗓️ Manajemen Tugas Akademik</h1>
+
+        <form id="task-form">
+            <input type="text" id="task-name" placeholder="Nama Tugas (Wajib)" required>
+            <input type="text" id="task-course" placeholder="Mata Kuliah ">
+            <input type="date" id="task-deadline" required>
+            <button type="submit">Tambah Tugas</button>
+            <div id="form-error" class="error"></div>
+        </form>
+        
+        <hr>
+
+        <div class="summary">
+            <p>Total Tugas Belum Selesai: <strong id="incomplete-count">0</strong></p>
+        </div>
+
+        <div class="controls">
+            <select id="filter-status">
+                <option value="all">Semua Status</option>
+                <option value="incomplete">Belum Selesai</option>
+                <option value="completed">Selesai</option>
+            </select>
+            <input type="text" id="search-course" placeholder="Cari Mata Kuliah...">
+        </div>
+
+        <h2>Daftar Tugas</h2>
+        <ul id="task-list" class="task-list">
+            </ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
