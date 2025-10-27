@@ -1,19 +1,6 @@
-/**
- * Tugas Praktikum: Aplikasi Personal Dashboard
- * File: app.js (Versi 5 - CRUD Penuh)
- *
- * Implementasi fitur ES6+:
- * 1. `let` dan `const`: Digunakan di seluruh file.
- * 2. `Arrow Functions`: Digunakan untuk event listener, helper, dan iterasi array.
- * 3. `Template Literals`: Digunakan untuk merender HTML dinamis (mode baca & edit).
- * 4. `Classes`: Digunakan untuk objek `Task` dan `Appointment`.
- * 5. `Async/Await` dan `Promises`: Digunakan dalam `setupDashboard`.
- * 6. `localStorage`: Digunakan untuk semua data interaktif.
- */
-
 document.addEventListener('DOMContentLoaded', () => {
 
-    // === Selektor DOM ===
+    // Selektor DOM
     const clockDisplay = document.getElementById('clock-display');
     const dateDisplay = document.getElementById('date-display');
     
@@ -34,11 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const addAppointmentBtn = document.getElementById('add-appointment-btn');
     const appointmentList = document.getElementById('appointment-list');
 
-    // === State Aplikasi ===
+    // State Aplikasi 
     let tasks = [];
     let appointments = [];
 
-    // === FITUR ES6+: Classes ===
+    // FITUR ES6+: Classes 
     class Task {
         constructor(id, text, isEditing = false) {
             this.id = id;
@@ -56,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // === Widget 1: Jam (Real-time) ===
+    //Jam (Real-time)
     const updateTime = () => {
         const now = new Date();
         const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
@@ -65,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         dateDisplay.textContent = now.toLocaleDateString('id-ID', dateOptions);
     };
 
-    // === Widget 2: Jadwal Hari Ini (CRUD) ===
+    //Jadwal Hari Ini 
     
     // Helper localStorage (Arrow Function)
     const getTodayString = () => new Date().toISOString().split('T')[0];
@@ -89,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderAppointments();
     };
 
-    // READ (C**R**UD)
+    // READ 
     const renderAppointments = () => {
         appointmentList.innerHTML = '';
         appointments.sort((a, b) => a.time.localeCompare(b.time));
@@ -125,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // CREATE (C**R**UD)
+    // CREATE 
     const addAppointment = () => {
         const time = appointmentTime.value;
         const desc = appointmentDesc.value.trim();
@@ -138,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         appointmentDesc.value = '';
     };
 
-    // Event Handler untuk UPDATE dan DELETE (CR**UD**)
+    // Event Handler untuk UPDATE dan DELETE 
     const handleAppointmentClick = (e) => {
         const id = Number(e.target.dataset.id);
         const targetAppt = appointments.find(a => a.id === id);
@@ -170,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
 
-    // === Widget 3: Jadwal Kuliah (Statis) ===
+    //Jadwal Kuliah (Statis) 
     const renderSchedule = () => {
         const scheduleData = [
             { matkul: "intelegensi buatan", hari: "Senin", jam: "13.00 -15.30 ", ruangan: "GK2 124" },
@@ -192,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // === Widget 4: Daftar Tugas (CRUD) ===
+    //Daftar Tugas (CRUD) 
     const saveTasks = () => {
         localStorage.setItem('dashboardTasks', JSON.stringify(tasks));
     };
@@ -205,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderTasks();
     };
 
-    // READ (C**R**UD)
+    // READ 
     const renderTasks = () => {
         taskList.innerHTML = '';
         tasks.forEach(task => {
@@ -234,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // CREATE (C**R**UD)
+    // CREATE 
     const addTask = () => {
         const taskText = todoInput.value.trim();
         if (taskText === '') return;
@@ -244,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
         todoInput.value = '';
     };
 
-    // Event Handler untuk UPDATE dan DELETE (CR**UD**)
+    // Event Handler untuk UPDATE dan DELETE 
     const handleTaskClick = (e) => {
         const id = Number(e.target.dataset.id);
         const targetTask = tasks.find(t => t.id === id);
@@ -275,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
 
-    // === Widget 5: Catatan Singkat (Create/Update) ===
+    //Catatan Singkat 
     const saveNotes = () => {
         localStorage.setItem('dashboardNotes', notesArea.value);
     };
@@ -283,8 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
         notesArea.value = localStorage.getItem('dashboardNotes') || '';
     };
 
-    // === Inisialisasi Aplikasi ===
-    // === FITUR ES6+: Async/Await dan Promise ===
+    // FITUR ES6+: Async/Await dan Promise 
     const setupDashboard = async () => {
         updateTime();
         setInterval(updateTime, 1000);

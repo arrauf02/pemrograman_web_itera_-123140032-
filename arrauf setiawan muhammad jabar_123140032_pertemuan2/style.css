@@ -1,4 +1,4 @@
-/* Reset dan Font Dasar */
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #f4f7f6;
@@ -13,7 +13,7 @@ header {
     color: #2c3e50;
 }
 
-/* Layout Dashboard Utama */
+
 .dashboard-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -22,7 +22,7 @@ header {
     margin: 0 auto;
 }
 
-/* Styling Widget */
+
 .widget {
     background-color: #ffffff;
     border-radius: 8px;
@@ -42,7 +42,7 @@ header {
     padding-bottom: 10px;
 }
 
-/* Widget Jam */
+
 #clock-display {
     font-size: 2.5rem;
     font-weight: 600;
@@ -57,14 +57,14 @@ header {
     margin-top: 5px;
 }
 
-/* Input Kontainer (Dipakai di ToDo & Jadwal Harian) */
+
 .input-container {
     display: flex;
     gap: 10px;
     margin-bottom: 15px;
 }
 
-/* List (Dipakai di ToDo & Jadwal Harian) */
+
 .crud-list {
     list-style: none;
     padding: 0;
@@ -84,7 +84,6 @@ header {
     word-break: break-word;
 }
 
-/* Tombol Aksi (Hapus, Edit, Simpan) */
 .action-buttons {
     display: flex;
     gap: 5px;
@@ -122,7 +121,7 @@ header {
     background-color: #2ecc71;
 }
 
-/* Input saat Mode Edit */
+
 .edit-input {
     flex-grow: 1;
     padding: 8px;
@@ -131,7 +130,7 @@ header {
     font-size: 0.95rem;
 }
 
-/* Widget Jadwal Hari Ini */
+
 #appointment-list .appointment-details {
     display: flex;
     align-items: center;
@@ -148,7 +147,7 @@ header {
     font-size: 0.95rem;
     color: #333;
 }
-/* Mode Edit Jadwal Harian */
+
 #appointment-list .edit-time {
     width: 90px;
     padding: 8px;
@@ -163,14 +162,14 @@ header {
 }
 
 
-/* Widget To-Do */
+
 #task-list .task-text {
     flex-grow: 1;
     font-size: 0.95rem;
 }
 
 
-/* Widget Jadwal Kuliah */
+
 #schedule-table {
     width: 100%;
     border-collapse: collapse;
@@ -184,7 +183,7 @@ header {
 #schedule-table th { color: #34495e; }
 #schedule-table tbody tr:last-child td { border-bottom: none; }
 
-/* Widget Catatan Singkat */
+
 #notes-area {
     width: 100%;
     height: 200px;
