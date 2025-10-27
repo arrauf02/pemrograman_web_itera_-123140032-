@@ -1,0 +1,198 @@
+/* Reset dan Font Dasar */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+}
+
+/* Layout Dashboard Utama */
+.dashboard-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Styling Widget */
+.widget {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.widget-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #34495e;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 10px;
+}
+
+/* Widget Jam */
+#clock-display {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #2980b9;
+    text-align: center;
+}
+
+#date-display {
+    font-size: 1rem;
+    color: #7f8c8d;
+    text-align: center;
+    margin-top: 5px;
+}
+
+/* Input Kontainer (Dipakai di ToDo & Jadwal Harian) */
+.input-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+/* List (Dipakai di ToDo & Jadwal Harian) */
+.crud-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.crud-list li {
+    background-color: #f9f9f9;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    word-break: break-word;
+}
+
+/* Tombol Aksi (Hapus, Edit, Simpan) */
+.action-buttons {
+    display: flex;
+    gap: 5px;
+    margin-left: 10px;
+}
+
+.action-btn {
+    border: none;
+    border-radius: 4px;
+    padding: 5px 8px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: white;
+    transition: background-color 0.2s;
+}
+
+.delete-btn {
+    background-color: #e74c3c;
+}
+.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+.edit-btn {
+    background-color: #3498db;
+}
+.edit-btn:hover {
+    background-color: #2980b9;
+}
+
+.save-btn {
+    background-color: #27ae60;
+}
+.save-btn:hover {
+    background-color: #2ecc71;
+}
+
+/* Input saat Mode Edit */
+.edit-input {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+/* Widget Jadwal Hari Ini */
+#appointment-list .appointment-details {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-grow: 1;
+}
+#appointment-list .time {
+    font-weight: 600;
+    color: #2980b9;
+    font-size: 1rem;
+    width: 60px;
+}
+#appointment-list .desc {
+    font-size: 0.95rem;
+    color: #333;
+}
+/* Mode Edit Jadwal Harian */
+#appointment-list .edit-time {
+    width: 90px;
+    padding: 8px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+}
+#appointment-list .edit-desc {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+}
+
+
+/* Widget To-Do */
+#task-list .task-text {
+    flex-grow: 1;
+    font-size: 0.95rem;
+}
+
+
+/* Widget Jadwal Kuliah */
+#schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+#schedule-table th, #schedule-table td {
+    border-bottom: 1px solid #ecf0f1;
+    padding: 10px 5px;
+    text-align: left;
+}
+#schedule-table th { color: #34495e; }
+#schedule-table tbody tr:last-child td { border-bottom: none; }
+
+/* Widget Catatan Singkat */
+#notes-area {
+    width: 100%;
+    height: 200px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    padding: 10px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    resize: vertical;
+    box-sizing: border-box;
+}

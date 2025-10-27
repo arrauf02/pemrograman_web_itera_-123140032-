@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>My Personal Dashboard</h1>
+    </header>
+
+    <main class="dashboard-container">
+
+        <section class="widget" id="clock-widget">
+            <h2 class="widget-title">Waktu Saat Ini</h2>
+            <div id="clock-display">Memuat...</div>
+            <div id="date-display"></div>
+        </section>
+
+        <section class="widget" id="daily-schedule-widget">
+            <h2 class="widget-title">Jadwal Hari Ini</h2>
+            <div class="appointment-input-container">
+                <input type="time" id="appointment-time" title="Waktu Janji">
+                <input type="text" id="appointment-desc" placeholder="Keterangan...">
+                <button id="add-appointment-btn" title="Tambah Janji">Tambah</button>
+            </div>
+            <ul id="appointment-list">
+                </ul>
+        </section>
+        
+        <section class="widget" id="schedule-widget">
+            <h2 class="widget-title">Jadwal Kuliah</h2>
+            <table id="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Mata Kuliah</th>
+                        <th>Hari</th>
+                        <th>Jam</th>
+                        <th>Ruangan</th>
+                    </tr>
+                </thead>
+                <tbody id="schedule-body">
+                    </tbody>
+            </table>
+        </section>
+
+        <section class="widget" id="todo-widget">
+            <h2 class="widget-title">Daftar Tugas</h2>
+            <div class="todo-input-container">
+                <input type="text" id="todo-input" placeholder="Tugas baru...">
+                <button id="add-task-btn">Tambah</button>
+            </div>
+            <ul id="task-list">
+                </ul>
+        </section>
+        
+        <section class="widget" id="notes-widget">
+            <h2 class="widget-title">Catatan Singkat</h2>
+            <textarea id="notes-area" placeholder="Tulis catatan cepat di sini... Catatan akan tersimpan otomatis."></textarea>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
