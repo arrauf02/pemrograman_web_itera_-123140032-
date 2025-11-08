@@ -38,17 +38,9 @@ data_mahasiswa = [
 ]
 
 def hitung_nilai_akhir(uts, uas, tugas):
-    """
-    Fungsi untuk menghitung nilai akhir.
-    (30% UTS + 40% UAS + 30% Tugas)
-    """
     return (0.3 * uts) + (0.4 * uas) + (0.3 * tugas)
 
 def tentukan_grade(nilai_akhir):
-    """
-    Fungsi untuk menentukan grade berdasarkan nilai akhir.
-    A: >=80, B: >=70, C: >=60, D: >=50, E: <50
-    """
     if nilai_akhir >= 80:
         return 'A'
     elif nilai_akhir >= 70:
@@ -61,10 +53,6 @@ def tentukan_grade(nilai_akhir):
         return 'E'
 
 def tampilkan_data(mahasiswa_list):
-    """
-    Fungsi untuk menampilkan data dalam format tabel.
-    Ini mencakup perhitungan nilai akhir dan grade on-the-fly.
-    """
     if not mahasiswa_list:
         print(">>> Tidak ada data untuk ditampilkan.")
         return
@@ -84,9 +72,6 @@ def tampilkan_data(mahasiswa_list):
     print("-" * 100)
 
 def cari_tertinggi_terendah(mahasiswa_list):
-    """
-    Fungsi untuk mencari mahasiswa dengan nilai akhir tertinggi dan terendah.
-    """
     if not mahasiswa_list:
         print(">>> Data masih kosong.")
         return
@@ -107,10 +92,6 @@ def cari_tertinggi_terendah(mahasiswa_list):
 
 
 def input_data_baru(mahasiswa_list):
-    """
-    Fungsi untuk menerima input data mahasiswa baru.
-    Termasuk validasi input sederhana untuk nilai (harus angka).
-    """
     print("\n--- Input Data Mahasiswa Baru ---")
     nama = input("Nama: ")
     nim = input("NIM: ")
@@ -140,9 +121,6 @@ def input_data_baru(mahasiswa_list):
     return mahasiswa_list
 
 def filter_by_grade(mahasiswa_list):
-    """
-    Fungsi untuk mem-filter mahasiswa berdasarkan grade.
-    """
     if not mahasiswa_list:
         print(">>> Data masih kosong.")
         return
@@ -169,9 +147,6 @@ def filter_by_grade(mahasiswa_list):
         tampilkan_data(filtered_list)
 
 def hitung_rata_rata_kelas(mahasiswa_list):
-    """
-    Fungsi untuk menghitung rata-rata nilai akhir semua mahasiswa.
-    """
     if not mahasiswa_list:
         print(">>> Data masih kosong.")
         return
@@ -188,9 +163,6 @@ def hitung_rata_rata_kelas(mahasiswa_list):
 
 
 def main():
-    """
-    Fungsi utama yang berisi menu interaktif dan loop program.
-    """
     data_saat_ini = data_mahasiswa
     
     while True:
