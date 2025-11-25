@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Mata Kuliah CRUD</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
+        h1 { color: #333;background-color: #149cdb; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background-color: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #007bff; color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        
+        .form-container { 
+            background-color: white; 
+            padding: 20px; 
+            margin-bottom: 30px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+            
+           
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 15px; 
+            align-items: flex-end; 
+        }
+        .form-group {
+            
+            display: flex;
+            flex-direction: column;
+            flex-basis: 200px;
+            flex-grow: 1; 
+        }
+
+        .form-container h2 {
+            flex-basis: 100%; 
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        
+        .form-group input, .form-group select { 
+            padding: 8px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            width: 100%; 
+            box-sizing: border-box; 
+        }
+
+        .form-container button {
+            padding: 10px 15px; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer;
+            align-self: flex-end; 
+            margin-top: 15px; 
+        }
+
+        .form-container #saveBtn { background-color: #28a745; }
+        .form-container #saveBtn:hover { background-color: #218838; }
+
+        .action-btns button { margin-right: 5px; padding: 6px 10px; cursor: pointer; border-radius: 4px; border: none; }
+        .edit-btn { background-color: #ffc107; color: #333; }
+        .delete-btn { background-color: #dc3545; color: white; }
+    </style>
+</head>
+<body>
+    <h1><center>Daftar Mata Kuliah By Arrauf Setiawan</center></h1>
+
+    <div class="form-container">
+    <h2>Tambah/Edit Mata Kuliah</h2>
+    <input type="hidden" id="mkId">
+    
+    <label for="kode_mk">Kode MK</label>
+    <input type="text" id="kode_mk" placeholder="Contoh: IF101">
+
+    <label for="nama_mk">Nama Mata Kuliah</label>
+    <input type="text" id="nama_mk" placeholder="Contoh: Fisika Dasar">
+
+    <label for="sks">SKS</label>
+    <input type="number" id="sks" placeholder="Contoh: 3">
+
+    <label for="semester">Semester</label>
+    <input type="number" id="semester" placeholder="Contoh: 1">
+    
+    <button onclick="saveMatakuliah()" id="saveBtn">Tambah Baru</button>
+    <button onclick="resetForm()" style="background-color: #6c757d;">Batal</button>
+    </div>
+
+    <table id="matakuliahTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Kode MK</th>
+                <th>Nama Mata Kuliah</th>
+                <th>SKS</th>
+                <th>Semester</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            </tbody>
+    </table>
+
+    <script>
+        const API_URL = 'http://127.0.0.1:6543/api/matakuliah';
+        const tableBody = document.querySelector('#matakuliahTable tbody');
+        const saveBtn = document.getElementById('saveBtn');
+
+        // Fungsi untuk mengambil dan menampilkan data (READ)
+        async function loadMatakuliah() {
+            tableBody.innerHTML = '<tr><td colspan="6">Memuat data...</td></tr>';
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error(`Gagal memuat data: ${response.statusText}`);
+                const data = await response.json();
+                
+                tableBody.innerHTML = ''; // Kosongkan tabel
+                
+                if (data.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="6">Tidak ada data mata kuliah.</td></tr>';
+                    return;
+                }
+
+                data.forEach(mk => {
+                    const row = tableBody.insertRow();
+                    row.insertCell().textContent = mk.id;
+                    row.insertCell().textContent = mk.kode_mk;
+                    row.insertCell().textContent = mk.nama_mk;
+                    row.insertCell().textContent = mk.sks;
+                    row.insertCell().textContent = mk.semester;
+
+                    // Tambahkan tombol Aksi (Edit & Delete)
+                    const actionCell = row.insertCell();
+                    actionCell.classList.add('action-btns');
+                    
+                    const editBtn = document.createElement('button');
+                    editBtn.textContent = 'Edit';
+                    editBtn.classList.add('edit-btn');
+                    editBtn.onclick = () => loadForEdit(mk);
+                    
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.textContent = 'Hapus';
+                    deleteBtn.classList.add('delete-btn');
+                    deleteBtn.onclick = () => deleteMatakuliah(mk.id);
+                    
+                    actionCell.appendChild(editBtn);
+                    actionCell.appendChild(deleteBtn);
+                });
+
+            } catch (error) {
+                console.error('Terjadi kesalahan:', error);
+                tableBody.innerHTML = `<tr><td colspan="6" style="color: red;">Kesalahan API: ${error.message}. Pastikan server Pyramid berjalan.</td></tr>`;
+            }
+        }
+        
+        // Fungsi untuk mengisi form dengan data yang akan diedit (UPDATE: persiapan)
+        function loadForEdit(mk) {
+            document.getElementById('mkId').value = mk.id;
+            document.getElementById('kode_mk').value = mk.kode_mk;
+            document.getElementById('nama_mk').value = mk.nama_mk;
+            document.getElementById('sks').value = mk.sks;
+            document.getElementById('semester').value = mk.semester;
+            saveBtn.textContent = 'Simpan Perubahan';
+            saveBtn.style.backgroundColor = '#ffc107';
+        }
+        
+        // Fungsi untuk membersihkan form
+        function resetForm() {
+            document.getElementById('mkId').value = '';
+            document.getElementById('kode_mk').value = '';
+            document.getElementById('nama_mk').value = '';
+            document.getElementById('sks').value = '';
+            document.getElementById('semester').value = '';
+            saveBtn.textContent = 'Tambah Baru';
+            saveBtn.style.backgroundColor = '#28a745';
+        }
+
+        // Fungsi untuk menyimpan data baru atau perubahan (CREATE / UPDATE)
+        async function saveMatakuliah() {
+            const id = document.getElementById('mkId').value;
+            const kode_mk = document.getElementById('kode_mk').value;
+            const nama_mk = document.getElementById('nama_mk').value;
+            const sks = document.getElementById('sks').value;
+            const semester = document.getElementById('semester').value;
+
+            if (!kode_mk || !nama_mk || !sks || !semester) {
+                alert('Semua field wajib diisi!');
+                return;
+            }
+
+            const data = { kode_mk, nama_mk, sks: parseInt(sks), semester: parseInt(semester) };
+            const method = id ? 'PUT' : 'POST';
+            const url = id ? `${API_URL}/${id}` : API_URL;
+
+            try {
+                const response = await fetch(url, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    alert(`Data Mata Kuliah berhasil di${id ? 'ubah' : 'tambah'}!`);
+                    resetForm();
+                    loadMatakuliah(); // Muat ulang data
+                } else {
+                    const errorData = await response.json();
+                    alert(`Gagal ${id ? 'mengubah' : 'menambah'} data: ${errorData.message || response.statusText}`);
+                }
+            } catch (error) {
+                alert('Gagal terhubung ke API. Pastikan CORS sudah diaktifkan dan server berjalan.');
+                console.error('Error:', error);
+            }
+        }
+
+        // Fungsi untuk menghapus data (DELETE)
+        async function deleteMatakuliah(id) {
+            if (!confirm(`Apakah Anda yakin ingin menghapus Mata Kuliah dengan ID ${id}?`)) return;
+
+            try {
+                const response = await fetch(`${API_URL}/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.status === 204) { // 204 No Content adalah respons sukses DELETE
+                    alert('Mata Kuliah berhasil dihapus!');
+                    loadMatakuliah(); // Muat ulang data
+                } else {
+                    alert(`Gagal menghapus data: ${response.statusText}`);
+                }
+            } catch (error) {
+                alert('Gagal terhubung ke API. Pastikan server Pyramid berjalan.');
+                console.error('Error:', error);
+            }
+        }
+
+        // Panggil fungsi untuk memuat data saat halaman dimuat
+        loadMatakuliah();
+    </script>
+</body>
+</html>
